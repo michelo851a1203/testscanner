@@ -11,7 +11,7 @@ import { BrowserQRCodeReader } from "@zxing/library";
 
 export default {
   name: "scanqrcode",
-  setup() {
+  setup(props, { emit }) {
     const codeReader = new BrowserQRCodeReader();
     const cameraRef = ref("");
     const video = ref(null);
@@ -34,9 +34,10 @@ export default {
       codeReader
         .decodeOnceFromVideoDevice(deviceId, video.value)
         .then((result) => {
-          console.group(`%c result`, "color:yellow");
-          console.log(result.text);
-          console.groupEnd();
+          // console.group(`%c result`, "color:yellow");
+          // console.log(result.text);
+          // console.groupEnd();
+          emit("qrcode", result.text);
         })
         .catch((err) => {
           console.error(err);
